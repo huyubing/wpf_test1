@@ -30,11 +30,12 @@ public partial class MainWindow : Window
         LoadTheme("Glass"); // Load default theme
     }
 
-    // History item class
-    public class CalculationHistoryItem
+    // History item class - internal to MainWindow
+    private class CalculationHistoryItem
     {
         public string Expression { get; set; } = "";
         public string Result { get; set; } = "";
+        public double NumericResult { get; set; }
     }
 
     private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -221,7 +222,8 @@ public partial class MainWindow : Window
             calculationHistory.Insert(0, new CalculationHistoryItem 
             { 
                 Expression = originalExpression, 
-                Result = $"= {result}" 
+                Result = $"= {result}",
+                NumericResult = result
             });
             
             currentExpression = result.ToString();
@@ -238,10 +240,9 @@ public partial class MainWindow : Window
     {
         if (HistoryListBox.SelectedItem is CalculationHistoryItem item)
         {
-            // Populate the display with the result value (without the "= " prefix)
-            string resultValue = item.Result.Replace("= ", "");
-            currentExpression = resultValue;
-            lastAnswer = double.TryParse(resultValue, out double val) ? val : 0;
+            // Use the stored numeric result instead of parsing the display string
+            currentExpression = item.NumericResult.ToString();
+            lastAnswer = item.NumericResult;
             UpdateDisplay();
             shouldClearDisplay = true;
             
