@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SciCalc"
         mc:Ignorable="d"
-        Title="科学计算器" Height="600" Width="500"
-        ResizeMode="CanMinimize">
+        Title="科学计算器" Height="650" Width="750"
+        ResizeMode="CanResize" MinWidth="750" MinHeight="650">
     <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="80"/>
@@ -15,7 +19,7 @@
         </Grid.RowDefinitions>
         
         <!-- Theme Selector -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
             <TextBlock Text="Theme:" VerticalAlignment="Center" Margin="0,0,10,0" FontSize="14"/>
             <ComboBox x:Name="ThemeComboBox" Width="150" SelectionChanged="ThemeComboBox_SelectionChanged">
                 <ComboBoxItem Content="Light (Rounded Flat)" Tag="Light"/>
@@ -25,9 +29,14 @@
             </ComboBox>
         </StackPanel>
         
+        <!-- History Header -->
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="History" FontSize="16" FontWeight="Bold" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        
         <!-- Display -->
         <TextBox x:Name="DisplayTextBox" 
                  Grid.Row="1" 
+                 Grid.Column="0"
                  FontSize="28" 
                  IsReadOnly="True" 
                  TextAlignment="Right" 
@@ -38,72 +47,104 @@
                  BorderThickness="2"
                  Text="0"/>
         
+        <!-- History List -->
+        <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" 
+                BorderBrush="#CCCCCC" BorderThickness="2" 
+                Background="White" Margin="5,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <ListBox x:Name="HistoryListBox" 
+                         Grid.Row="0"
+                         Margin="5"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         SelectionChanged="HistoryListBox_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <TextBlock Text="{Binding Expression}" FontSize="12" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Result}" FontSize="14" FontWeight="Bold" 
+                                          Foreground="#2C3E50" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+                <Button Grid.Row="1" Content="Clear History" 
+                        Click="ClearHistoryButton_Click"
+                        Margin="5" Padding="5"
+                        Style="{DynamicResource CalculatorButtonStyle}"/>
+            </Grid>
+        </Border>
+        
         <!-- Calculator Buttons -->
-        <Grid Grid.Row="2" Margin="0,10,0,0">
-            <UniformGrid Columns="6" Rows="8">
-                <!-- Row 1: Functions -->
-                <Button Content="sin" Click="FunctionButton_Click" Tag="sin" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="cos" Click="FunctionButton_Click" Tag="cos" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="tan" Click="FunctionButton_Click" Tag="tan" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="ln" Click="FunctionButton_Click" Tag="ln" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="log" Click="FunctionButton_Click" Tag="log10" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="exp" Click="FunctionButton_Click" Tag="exp" Style="{DynamicResource CalculatorButtonStyle}"/>
-                
-                <!-- Row 2: More functions -->
-                <Button Content="√" Click="FunctionButton_Click" Tag="sqrt" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="x²" Click="FunctionButton_Click" Tag="square" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="^" Click="OperatorButton_Click" Tag="^" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="!" Click="FactorialButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="π" Click="ConstantButton_Click" Tag="pi" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="e" Click="ConstantButton_Click" Tag="e" Style="{DynamicResource CalculatorButtonStyle}"/>
-                
-                <!-- Row 3: Memory and special -->
-                <Button Content="(" Click="OperatorButton_Click" Tag="(" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content=")" Click="OperatorButton_Click" Tag=")" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="%" Click="PercentButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="±" Click="SignToggleButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="Ans" Click="AnsButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="⌫" Click="BackspaceButton_Click" FontSize="20" Style="{DynamicResource CalculatorButtonStyle}"/>
-                
-                <!-- Row 4: Clear and number row -->
-                <Button Content="C" Click="ClearButton_Click" FontWeight="Bold" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="7" Click="NumberButton_Click" Tag="7" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="8" Click="NumberButton_Click" Tag="8" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="9" Click="NumberButton_Click" Tag="9" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="÷" Click="OperatorButton_Click" Tag="÷" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="×" Click="OperatorButton_Click" Tag="×" Style="{DynamicResource CalculatorButtonStyle}"/>
-                
-                <!-- Row 5 -->
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="4" Click="NumberButton_Click" Tag="4" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="5" Click="NumberButton_Click" Tag="5" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="6" Click="NumberButton_Click" Tag="6" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="-" Click="OperatorButton_Click" Tag="-" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="+" Click="OperatorButton_Click" Tag="+" Style="{DynamicResource CalculatorButtonStyle}"/>
-                
-                <!-- Row 6 -->
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="1" Click="NumberButton_Click" Tag="1" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="2" Click="NumberButton_Click" Tag="2" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="3" Click="NumberButton_Click" Tag="3" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                
-                <!-- Row 7 -->
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="0" Click="NumberButton_Click" Tag="0" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="." Click="DecimalButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                
-                <!-- Row 8: Equals button spanning columns -->
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="" IsEnabled="False" Opacity="0"/>
-                <Button Content="=" Click="EqualsButton_Click" FontWeight="Bold" Grid.ColumnSpan="2" Style="{DynamicResource CalculatorButtonStyle}"/>
-            </UniformGrid>
+        <Grid Grid.Row="2" Grid.Column="0" Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Row 0: Scientific Functions -->
+            <Button Grid.Row="0" Grid.Column="0" Content="sin" Click="FunctionButton_Click" Tag="sin" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="cos" Click="FunctionButton_Click" Tag="cos" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="tan" Click="FunctionButton_Click" Tag="tan" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="ln" Click="FunctionButton_Click" Tag="ln" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="4" Content="log" Click="FunctionButton_Click" Tag="log10" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="5" Content="exp" Click="FunctionButton_Click" Tag="exp" Style="{DynamicResource CalculatorButtonStyle}"/>
+            
+            <!-- Row 1: More Functions -->
+            <Button Grid.Row="1" Grid.Column="0" Content="√" Click="FunctionButton_Click" Tag="sqrt" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="x²" Click="FunctionButton_Click" Tag="square" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="^" Click="OperatorButton_Click" Tag="^" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="3" Content="!" Click="FactorialButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="4" Content="π" Click="ConstantButton_Click" Tag="pi" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="5" Content="e" Click="ConstantButton_Click" Tag="e" Style="{DynamicResource CalculatorButtonStyle}"/>
+            
+            <!-- Row 2: Special Functions and Operators -->
+            <Button Grid.Row="2" Grid.Column="0" Content="(" Click="OperatorButton_Click" Tag="(" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="1" Content=")" Click="OperatorButton_Click" Tag=")" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="%" Click="PercentButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="±" Click="SignToggleButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="4" Content="Ans" Click="AnsButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="5" Content="⌫" Click="BackspaceButton_Click" FontSize="20" Style="{DynamicResource CalculatorButtonStyle}"/>
+            
+            <!-- Row 3: Numbers 7-9 and Operators -->
+            <Button Grid.Row="3" Grid.Column="0" Content="C" Click="ClearButton_Click" FontWeight="Bold" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="7" Click="NumberButton_Click" Tag="7" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="8" Click="NumberButton_Click" Tag="8" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="3" Content="9" Click="NumberButton_Click" Tag="9" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="4" Content="÷" Click="OperatorButton_Click" Tag="÷" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="5" Content="×" Click="OperatorButton_Click" Tag="×" Style="{DynamicResource CalculatorButtonStyle}"/>
+            
+            <!-- Row 4: Numbers 4-6 and Operators -->
+            <Button Grid.Row="4" Grid.Column="0" Content="=" Click="EqualsButton_Click" FontWeight="Bold" Grid.RowSpan="2" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="4" Click="NumberButton_Click" Tag="4" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="5" Click="NumberButton_Click" Tag="5" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="3" Content="6" Click="NumberButton_Click" Tag="6" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="4" Content="-" Click="OperatorButton_Click" Tag="-" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="5" Content="+" Click="OperatorButton_Click" Tag="+" Style="{DynamicResource CalculatorButtonStyle}"/>
+            
+            <!-- Row 5: Numbers 0-3 and Decimal -->
+            <Button Grid.Row="5" Grid.Column="1" Content="1" Click="NumberButton_Click" Tag="1" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="2" Content="2" Click="NumberButton_Click" Tag="2" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="3" Content="3" Click="NumberButton_Click" Tag="3" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="4" Content="0" Click="NumberButton_Click" Tag="0" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="5" Content="." Click="DecimalButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
         </Grid>
     </Grid>
 </Window>
