@@ -35,43 +35,11 @@
         
         <!-- Display with modern styling -->
         <Border Grid.Row="1" Grid.Column="0" 
-                BorderThickness="3" 
-                CornerRadius="10"
-                Margin="0,0,5,0">
-            <Border.BorderBrush>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#4A90E2" Offset="0"/>
-                    <GradientStop Color="#67B26F" Offset="0.5"/>
-                    <GradientStop Color="#4A90E2" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.BorderBrush>
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#000000" Opacity="0.3"/>
-            </Border.Effect>
-            <Border CornerRadius="8">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#1A1A2E" Offset="0"/>
-                        <GradientStop Color="#16213E" Offset="0.5"/>
-                        <GradientStop Color="#0F3460" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+                Style="{DynamicResource DisplayBorderStyle}">
+            <Border Style="{DynamicResource DisplayInnerBorderStyle}">
                 <TextBox x:Name="DisplayTextBox" 
-                         FontSize="32" 
-                         IsReadOnly="True" 
-                         TextAlignment="Right" 
-                         VerticalContentAlignment="Center"
-                         Padding="15"
-                         Background="Transparent"
-                         BorderThickness="0"
-                         Foreground="#00D9FF"
-                         FontWeight="Bold"
-                         FontFamily="Consolas"
-                         Text="0">
-                    <TextBox.Effect>
-                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#00D9FF" Opacity="0.5"/>
-                    </TextBox.Effect>
-                </TextBox>
+                         Text="0"
+                         Style="{DynamicResource DisplayTextBoxStyle}"/>
             </Border>
         </Border>
         

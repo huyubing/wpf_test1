@@ -50,4 +50,40 @@
         </Setter>
     </Style>
     
+    <!-- Display Style for Dark Theme -->
+    <Style x:Key="DisplayBorderStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
+        <Setter Property="BorderBrush" Value="#007ACC"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="15" ShadowDepth="0" Color="#007ACC" Opacity="0.6"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="DisplayInnerBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Background" Value="#1E1E1E"/>
+    </Style>
+    
+    <Style x:Key="DisplayTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#007ACC" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

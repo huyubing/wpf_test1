@@ -83,4 +83,56 @@
         </Setter>
     </Style>
     
+    <!-- Display Style for Glass Theme -->
+    <Style x:Key="DisplayBorderStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#4A90E2" Offset="0"/>
+                    <GradientStop Color="#67B26F" Offset="0.5"/>
+                    <GradientStop Color="#4A90E2" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#000000" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="DisplayInnerBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#1A1A2E" Offset="0"/>
+                    <GradientStop Color="#16213E" Offset="0.5"/>
+                    <GradientStop Color="#0F3460" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="DisplayTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="#00D9FF"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#00D9FF" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>
