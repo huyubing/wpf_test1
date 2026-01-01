@@ -29,22 +29,24 @@ The history panel is displayed on the right side of the calculator window, showi
 
 ### Modern Display Design
 
-The calculator features a modern, eye-catching display area with:
-- **Dark gradient background**: Deep blue gradient (from #1A1A2E to #0F3460)
-- **Neon cyan text**: Bright cyan (#00D9FF) numbers for excellent readability
-- **Glow effect**: Soft cyan glow around the text for a modern look
-- **Gradient border**: Multi-color border with smooth transitions
-- **Drop shadow**: 3D depth effect for visual appeal
-- **Monospace font**: Consolas font for clean, aligned digits
+The calculator features a modern, eye-catching display area that adapts to each theme:
+- **Large monospace font**: Consolas 32pt font for clean, aligned digits
+- **Theme-aware styling**: Display appearance changes to complement each theme
+- **Modern effects**: Gradients, shadows, and glows appropriate to each theme
+- **Excellent readability**: High-contrast text colors ensure visibility across all themes
 
-The display maintains excellent readability across all themes while providing a contemporary, professional appearance.
+Each theme provides its own unique display style:
+- **Glass Theme**: Dark gradient background with neon cyan text and glow effect
+- **Dark Theme**: Black background with white text and blue glow
+- **Light Theme**: White gradient background with dark text and subtle shadow
+- **High Contrast Theme**: Black background with bright yellow text for maximum accessibility
 
 ### Improved Button Layout
 
 The calculator features a compact, professional button layout:
 - **No empty spaces**: All grid cells are utilized efficiently
 - **6×6 grid**: Organized arrangement with scientific functions, numbers, and operators
-- **Wide buttons**: The "0" and "=" buttons span multiple columns for ergonomic use
+- **Extended = button**: The "=" button spans 2 rows for easy access
 - **Responsive sizing**: Layout scales proportionally with window resizing
 - **Logical grouping**: Functions organized by category (trigonometric, arithmetic, etc.)
 
@@ -59,12 +61,14 @@ The calculator supports four distinct visual themes that can be switched at runt
    - Rounded corners (12px radius)
    - Subtle hover effects
    - Modern flat design aesthetic
+   - White gradient display with dark text
 
 2. **Dark (Glowing)** - A dark mode with visual flair:
    - Dark gray buttons (#2D2D30 background)
    - White text on dark background
    - Blue glow effect on hover and press
    - Sharp corners with subtle rounding (5px)
+   - Black display background with white text and blue glow
 
 3. **High Contrast** - Maximum visibility and accessibility:
    - Black background with bright yellow text
@@ -72,6 +76,7 @@ The calculator supports four distinct visual themes that can be switched at runt
    - High contrast color scheme for accessibility
    - Inverted colors on hover (yellow background, black text)
    - Square corners for sharp definition
+   - Black display with bright yellow text for maximum contrast
 
 4. **Glass (Metallic)** - A sophisticated translucent look:
    - Multi-layer gradient backgrounds
@@ -79,6 +84,7 @@ The calculator supports four distinct visual themes that can be switched at runt
    - Glass-like shine effect with inner highlight
    - Soft drop shadows
    - Smooth rounded corners (8px)
+   - Dark gradient display with neon cyan text and glow effects
 
 #### How to Switch Themes:
 
