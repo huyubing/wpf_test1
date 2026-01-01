@@ -21,7 +21,7 @@ public partial class MainWindow : Window
     private string currentExpression = "";
     private double lastAnswer = 0;
     private bool shouldClearDisplay = false;
-    private ObservableCollection<CalculationHistoryItem> calculationHistory = new ObservableCollection<CalculationHistoryItem>();
+    private ObservableCollection<CalculationHistoryItem> calculationHistory = new();
 
     public MainWindow()
     {
@@ -33,9 +33,9 @@ public partial class MainWindow : Window
     // History item class - internal to MainWindow
     private class CalculationHistoryItem
     {
-        public string Expression { get; set; } = "";
-        public string Result { get; set; } = "";
-        public double NumericResult { get; set; }
+        public required string Expression { get; set; }
+        public required string Result { get; set; }
+        public required double NumericResult { get; set; }
     }
 
     private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
