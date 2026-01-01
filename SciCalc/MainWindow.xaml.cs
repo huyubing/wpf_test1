@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
+using System.Collections.ObjectModel;
 
 namespace SciCalc;
 
@@ -20,11 +21,20 @@ public partial class MainWindow : Window
     private string currentExpression = "";
     private double lastAnswer = 0;
     private bool shouldClearDisplay = false;
+    private ObservableCollection<CalculationHistoryItem> calculationHistory = new ObservableCollection<CalculationHistoryItem>();
 
     public MainWindow()
     {
         InitializeComponent();
+        HistoryListBox.ItemsSource = calculationHistory;
         LoadTheme("Glass"); // Load default theme
+    }
+
+    // History item class
+    public class CalculationHistoryItem
+    {
+        public string Expression { get; set; } = "";
+        public string Result { get; set; } = "";
     }
 
     private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -203,8 +213,17 @@ public partial class MainWindow : Window
     {
         try
         {
+            string originalExpression = currentExpression;
             double result = EvaluateExpression(currentExpression);
             lastAnswer = result;
+            
+            // Add to history
+            calculationHistory.Insert(0, new CalculationHistoryItem 
+            { 
+                Expression = originalExpression, 
+                Result = $"= {result}" 
+            });
+            
             currentExpression = result.ToString();
             UpdateDisplay();
             shouldClearDisplay = true;
@@ -213,6 +232,27 @@ public partial class MainWindow : Window
         {
             MessageBox.Show("错误: " + ex.Message, "计算错误", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+    private void HistoryListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (HistoryListBox.SelectedItem is CalculationHistoryItem item)
+        {
+            // Populate the display with the result value (without the "= " prefix)
+            string resultValue = item.Result.Replace("= ", "");
+            currentExpression = resultValue;
+            lastAnswer = double.TryParse(resultValue, out double val) ? val : 0;
+            UpdateDisplay();
+            shouldClearDisplay = true;
+            
+            // Clear selection
+            HistoryListBox.SelectedItem = null;
+        }
+    }
+
+    private void ClearHistoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        calculationHistory.Clear();
     }
 
     private double EvaluateExpression(string expression)
