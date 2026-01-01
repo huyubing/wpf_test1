@@ -43,4 +43,30 @@
         </Setter>
     </Style>
     
+    <!-- Display Style for High Contrast Theme -->
+    <Style x:Key="DisplayBorderStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
+        <Setter Property="BorderBrush" Value="#FFFF00"/>
+    </Style>
+    
+    <Style x:Key="DisplayInnerBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="Background" Value="#000000"/>
+    </Style>
+    
+    <Style x:Key="DisplayTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="TextAlignment" Value="Right"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="#FFFF00"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+    </Style>
+    
 </ResourceDictionary>
