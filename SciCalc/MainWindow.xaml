@@ -33,19 +33,47 @@
         <TextBlock Grid.Row="0" Grid.Column="1" Text="History" FontSize="16" FontWeight="Bold" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
         
-        <!-- Display -->
-        <TextBox x:Name="DisplayTextBox" 
-                 Grid.Row="1" 
-                 Grid.Column="0"
-                 FontSize="28" 
-                 IsReadOnly="True" 
-                 TextAlignment="Right" 
-                 VerticalContentAlignment="Center"
-                 Padding="10"
-                 Background="#F5F5F5"
-                 BorderBrush="#CCCCCC"
-                 BorderThickness="2"
-                 Text="0"/>
+        <!-- Display with modern styling -->
+        <Border Grid.Row="1" Grid.Column="0" 
+                BorderThickness="3" 
+                CornerRadius="10"
+                Margin="0,0,5,0">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#4A90E2" Offset="0"/>
+                    <GradientStop Color="#67B26F" Offset="0.5"/>
+                    <GradientStop Color="#4A90E2" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="3" Color="#000000" Opacity="0.3"/>
+            </Border.Effect>
+            <Border CornerRadius="8">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#1A1A2E" Offset="0"/>
+                        <GradientStop Color="#16213E" Offset="0.5"/>
+                        <GradientStop Color="#0F3460" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBox x:Name="DisplayTextBox" 
+                         FontSize="32" 
+                         IsReadOnly="True" 
+                         TextAlignment="Right" 
+                         VerticalContentAlignment="Center"
+                         Padding="15"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Foreground="#00D9FF"
+                         FontWeight="Bold"
+                         FontFamily="Consolas"
+                         Text="0">
+                    <TextBox.Effect>
+                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#00D9FF" Opacity="0.5"/>
+                    </TextBox.Effect>
+                </TextBox>
+            </Border>
+        </Border>
         
         <!-- History List -->
         <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" 
@@ -132,19 +160,18 @@
             <Button Grid.Row="3" Grid.Column="5" Content="×" Click="OperatorButton_Click" Tag="×" Style="{DynamicResource CalculatorButtonStyle}"/>
             
             <!-- Row 4: Numbers 4-6 and Operators -->
-            <Button Grid.Row="4" Grid.Column="0" Content="=" Click="EqualsButton_Click" FontWeight="Bold" Grid.RowSpan="2" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="4" Grid.Column="1" Content="4" Click="NumberButton_Click" Tag="4" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="4" Grid.Column="2" Content="5" Click="NumberButton_Click" Tag="5" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="4" Grid.Column="3" Content="6" Click="NumberButton_Click" Tag="6" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="4" Grid.Column="4" Content="-" Click="OperatorButton_Click" Tag="-" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="4" Grid.Column="5" Content="+" Click="OperatorButton_Click" Tag="+" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="0" Content="4" Click="NumberButton_Click" Tag="4" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="5" Click="NumberButton_Click" Tag="5" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="6" Click="NumberButton_Click" Tag="6" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="3" Content="-" Click="OperatorButton_Click" Tag="-" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="4" Content="+" Click="OperatorButton_Click" Tag="+" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="4" Grid.Column="5" Content="=" Click="EqualsButton_Click" FontWeight="Bold" Grid.RowSpan="2" Style="{DynamicResource CalculatorButtonStyle}"/>
             
             <!-- Row 5: Numbers 0-3 and Decimal -->
-            <Button Grid.Row="5" Grid.Column="1" Content="1" Click="NumberButton_Click" Tag="1" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="5" Grid.Column="2" Content="2" Click="NumberButton_Click" Tag="2" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="5" Grid.Column="3" Content="3" Click="NumberButton_Click" Tag="3" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="5" Grid.Column="4" Content="0" Click="NumberButton_Click" Tag="0" Style="{DynamicResource CalculatorButtonStyle}"/>
-            <Button Grid.Row="5" Grid.Column="5" Content="." Click="DecimalButton_Click" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="0" Content="1" Click="NumberButton_Click" Tag="1" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="1" Content="2" Click="NumberButton_Click" Tag="2" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="2" Content="3" Click="NumberButton_Click" Tag="3" Style="{DynamicResource CalculatorButtonStyle}"/>
+            <Button Grid.Row="5" Grid.Column="3" Content="0" Click="NumberButton_Click" Tag="0" Grid.ColumnSpan="2" Style="{DynamicResource CalculatorButtonStyle}"/>
         </Grid>
     </Grid>
 </Window>
