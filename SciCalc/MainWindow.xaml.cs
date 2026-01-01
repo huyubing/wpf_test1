@@ -31,19 +31,13 @@ public partial class MainWindow : Window
     {
         if (ThemeComboBox.SelectedItem is ComboBoxItem item && item.Tag != null)
         {
-            string themeName = item.Tag.ToString() ?? "Glass";
+            string themeName = item.Tag.ToString()!;
             LoadTheme(themeName);
         }
     }
 
     private void LoadTheme(string themeName)
     {
-        // Clear existing calculator button style
-        if (Resources.Contains("CalculatorButtonStyle"))
-        {
-            Resources.Remove("CalculatorButtonStyle");
-        }
-
         // Load the appropriate theme resource dictionary
         string themeUri = $"/Themes/{themeName}Theme.xaml";
         ResourceDictionary theme = new ResourceDictionary
@@ -51,11 +45,9 @@ public partial class MainWindow : Window
             Source = new Uri(themeUri, UriKind.Relative)
         };
 
-        // Add the new theme to resources
-        if (theme.Contains("CalculatorButtonStyle"))
-        {
-            Resources.Add("CalculatorButtonStyle", theme["CalculatorButtonStyle"]);
-        }
+        // Clear existing merged dictionaries and add the new theme
+        Resources.MergedDictionaries.Clear();
+        Resources.MergedDictionaries.Add(theme);
     }
 
     private void UpdateDisplay()
