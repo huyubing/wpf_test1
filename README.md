@@ -1,4 +1,4 @@
-"# wpf_test1
+# wpf_test1
 
 ## Scientific Calculator with Theme Switching
 
